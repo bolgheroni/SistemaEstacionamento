@@ -6,6 +6,7 @@
 package Tela;
 
 import Dados.Arquivo;
+import dominio.Timer;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Tela {
         String status;
         JFormattedTextField placa = new JFormattedTextField(mascaraPlaca);
         Object[] a = {"Placa",placa};
-        JOptionPane.showConfirmDialog(null, a, "Movimento", JOptionPane.OK_CANCEL_OPTION);
+        JOptionPane.showConfirmDialog(null,  a, "Movimento", JOptionPane.OK_CANCEL_OPTION);
         status = placa.getText();
         return status;
         
@@ -52,6 +53,11 @@ public class Tela {
         for (String[] recibo : recibos) {
             String[] nice;
             nice = recibo[1].split(" ");
+            if(Timer.verificarSaida(recibo[0])){
+                String nice2[] = recibo[2].split(" ");
+                texto+= "Placa :"+recibo[0]+"\n"+"Entrada: "+ nice[0] +" as " +nice[1]+"\n"+"Saida : "+nice2[0] +
+                        " as " + nice2[1] +"\n_____________________\n"; 
+            }
             texto += "Placa :"+recibo[0]+"\n"+"Entrada: "+ nice[0] +" as " +nice[1]+"\n"+"_____________________\n";
         }
         JOptionPane.showMessageDialog(null, texto, "Recibos", PLAIN_MESSAGE);
